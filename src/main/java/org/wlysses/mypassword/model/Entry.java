@@ -10,7 +10,7 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(of = "id")
-public class Password implements Serializable {
+public class Entry implements Serializable {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -27,13 +27,13 @@ public class Password implements Serializable {
     private String url;
     private String email;
 
-    public Password(@JsonProperty UUID id,
-                    @JsonProperty String title,
-                    @JsonProperty String user,
-                    @JsonProperty String passwd,
-                    @JsonProperty String notes,
-                    @JsonProperty String url,
-                    @JsonProperty String email) {
+    public Entry(@JsonProperty UUID id,
+                 @JsonProperty String title,
+                 @JsonProperty String user,
+                 @JsonProperty String passwd,
+                 @JsonProperty String notes,
+                 @JsonProperty String url,
+                 @JsonProperty String email) {
         this.id = id;
         this.title = title;
         this.user = user;
@@ -43,7 +43,7 @@ public class Password implements Serializable {
         this.email = email;
     }
 
-    public Password(UUID id, Password clone) {
+    public Entry(UUID id, Entry clone) {
         this.id = id;
         this.title = clone.getTitle();
         this.user = clone.getUser();
@@ -53,7 +53,7 @@ public class Password implements Serializable {
         this.email = clone.getEmail();
     }
 
-    public Password() {
+    public Entry() {
         super();
     }
 }
