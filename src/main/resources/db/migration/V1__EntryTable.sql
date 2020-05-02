@@ -4,7 +4,7 @@ CREATE TABLE Entry
     title  VARCHAR(100) NOT NULL,
     "user" VARCHAR(100) NOT NULL,
     passwd VARCHAR(100) NOT NULL,
-    notes  VARCHAR(100) NOT NULL,
-    url    VARCHAR(100) NOT NULL,
-    email  VARCHAR(100) NOT NULL
+    notes  VARCHAR(100),
+    url    VARCHAR(100),
+    email  VARCHAR(100)
 );

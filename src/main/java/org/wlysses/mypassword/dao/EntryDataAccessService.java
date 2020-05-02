@@ -21,13 +21,15 @@ public class EntryDataAccessService implements EntryDao {
 
     @Override
     public Integer insertEntry(UUID id, Entry entry) {
-        return null;
+        final String sql = "INSERT INTO Entry (id, title, \"user\", passwd, notes, url, email) values (?, ?, ?, ?, ?, ?, ?);";
+        final Object[] params = {id, entry.getTitle(), entry.getUser(), entry.getPasswd(), entry.getNotes(), entry.getUrl(), entry.getEmail()};
+        return jdbcTemplate.update(sql, params);
     }
 
     @Override
     public List<Entry> getAll() {
         final String sql = "SELECT * FROM Entry";
-        List<Entry> entryList = jdbcTemplate.query(sql, (resultSet, i) -> {
+        return jdbcTemplate.query(sql, (resultSet, i) -> {
             UUID id = UUID.fromString(resultSet.getString("id"));
             return new Entry(
                     id,
@@ -39,21 +41,39 @@ public class EntryDataAccessService implements EntryDao {
                     resultSet.getString("email")
             );
         });
-        return entryList;
     }
 
     @Override
     public Optional<Entry> getEntryById(UUID id) {
-        return Optional.empty();
+        final String sql = "SELECT * FROM Entry where id = ?";
+        Entry entry = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{id},
+                (resultSet, i) -> {
+                    UUID entryId = UUID.fromString(resultSet.getString("id"));
+                    return new Entry(
+                            entryId,
+                            resultSet.getString("title"),
+                            resultSet.getString("user"),
+                            resultSet.getString("passwd"),
+                            resultSet.getString("notes"),
+                            resultSet.getString("url"),
+                            resultSet.getString("email")
+                    );
+                });
+        return Optional.ofNullable(entry);
     }
 
     @Override
     public Integer deleteEntryById(UUID id) {
-        return null;
+        final String sql = "DELETE FROM Entry where id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public Integer updateEntryById(UUID id, Entry entry) {
-        return null;
+        final String sql = "UPDATE Entry SET title = ?, \"user\" = ? , passwd = ? , notes = ?, url = ? , email = ? where id = ?";
+        final Object[] params = {entry.getTitle(), entry.getUser(), entry.getPasswd(), entry.getNotes(), entry.getUrl(), entry.getEmail(), id};
+        return jdbcTemplate.update(sql, params);
     }
 }

@@ -22,7 +22,7 @@ public class EntryController {
     }
 
     @PostMapping
-    public Integer addPassword(@Valid @NonNull @RequestBody Entry password) {
+    public Integer addEntry(@Valid @NonNull @RequestBody Entry password) {
         return entryService.addEntry(password);
     }
 
@@ -32,18 +32,18 @@ public class EntryController {
     }
 
     @GetMapping(path = "{id}")
-    public Entry getPasswordById(@PathVariable("id") UUID id) {
+    public Entry getEntryById(@PathVariable("id") UUID id) {
         return entryService.getEntryById(id)
                 .orElse(null);
     }
 
     @DeleteMapping(path = "{id}")
-    public void deletePasswordById(@PathVariable("id") UUID id) {
+    public void deleteEntryById(@PathVariable("id") UUID id) {
         entryService.deleteEntry(id);
     }
 
     @PutMapping(path = "{id}")
-    public void updatePassword(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Entry password) {
+    public void updateEntry(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Entry password) {
         entryService.updateEntry(id, password);
     }
 
