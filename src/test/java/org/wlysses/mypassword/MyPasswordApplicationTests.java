@@ -1,4 +1,4 @@
-package org.wlysses.MyPassword;
+package org.wlysses.mypassword;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
