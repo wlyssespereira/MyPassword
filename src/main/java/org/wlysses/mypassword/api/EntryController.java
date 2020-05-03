@@ -22,8 +22,8 @@ public class EntryController {
     }
 
     @PostMapping
-    public Integer addEntry(@Valid @NonNull @RequestBody Entry password) {
-        return entryService.addEntry(password);
+    public Integer addEntry(@Valid @NonNull @RequestBody Entry entry) {
+        return entryService.addEntry(entry);
     }
 
     @GetMapping
@@ -43,9 +43,7 @@ public class EntryController {
     }
 
     @PutMapping(path = "{id}")
-    public void updateEntry(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Entry password) {
-        entryService.updateEntry(id, password);
+    public void updateEntry(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Entry entry) {
+        entryService.updateEntry(id, entry);
     }
-
-
 }

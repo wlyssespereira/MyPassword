@@ -1,6 +1,7 @@
 package org.wlysses.mypassword.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.wlysses.mypassword.model.Entry;
@@ -46,22 +47,26 @@ public class EntryDataAccessService implements EntryDao {
     @Override
     public Optional<Entry> getEntryById(UUID id) {
         final String sql = "SELECT * FROM Entry where id = ?";
-        Entry entry = jdbcTemplate.queryForObject(
-                sql,
-                new Object[]{id},
-                (resultSet, i) -> {
-                    UUID entryId = UUID.fromString(resultSet.getString("id"));
-                    return new Entry(
-                            entryId,
-                            resultSet.getString("title"),
-                            resultSet.getString("user"),
-                            resultSet.getString("passwd"),
-                            resultSet.getString("notes"),
-                            resultSet.getString("url"),
-                            resultSet.getString("email")
-                    );
-                });
-        return Optional.ofNullable(entry);
+        try {
+            Entry entry = jdbcTemplate.queryForObject(
+                    sql,
+                    new Object[]{id},
+                    (resultSet, i) -> {
+                        UUID entryId = UUID.fromString(resultSet.getString("id"));
+                        return new Entry(
+                                entryId,
+                                resultSet.getString("title"),
+                                resultSet.getString("user"),
+                                resultSet.getString("passwd"),
+                                resultSet.getString("notes"),
+                                resultSet.getString("url"),
+                                resultSet.getString("email")
+                        );
+                    });
+            return Optional.ofNullable(entry);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
