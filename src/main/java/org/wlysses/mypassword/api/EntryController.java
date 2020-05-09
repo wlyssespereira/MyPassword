@@ -1,6 +1,9 @@
 package org.wlysses.mypassword.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import org.wlysses.mypassword.model.Entry;
@@ -22,19 +25,25 @@ public class EntryController {
     }
 
     @PostMapping
-    public Integer addEntry(@Valid @NonNull @RequestBody Entry entry) {
-        return entryService.addEntry(entry);
-    }
-
-    @GetMapping
-    public List<Entry> getAll() {
-        return entryService.getAll();
+    public ResponseEntity<Integer> addEntry(@Valid @NonNull @RequestBody Entry entry) {
+        Integer response = entryService.addEntry(entry);
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "{id}")
-    public Entry getEntryById(@PathVariable("id") UUID id) {
-        return entryService.getEntryById(id)
+    public ResponseEntity<Entry> getEntryById(@PathVariable("id") UUID id) {
+        Entry response = entryService.getEntryById(id)
                 .orElse(null);
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Entry>> getAllPaginated(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        List<Entry> response = entryService.getAllPaginated(pageNo, pageSize, sortBy);
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{id}")

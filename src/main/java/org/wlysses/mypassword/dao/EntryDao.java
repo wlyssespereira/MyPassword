@@ -17,6 +17,8 @@ public interface EntryDao {
 
     List<Entry> getAll();
 
+    List<Entry> getAllPaginated(Integer pageNo, Integer pageSize, String sortBy);
+
     Optional<Entry> getEntryById(UUID id);
 
     Integer deleteEntryById(UUID id);

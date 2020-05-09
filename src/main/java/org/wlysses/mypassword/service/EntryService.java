@@ -16,7 +16,7 @@ public class EntryService {
     private final EntryDao entryDao;
 
     @Autowired
-    public EntryService(@Qualifier("postgres") EntryDao passwordDao) {
+    public EntryService(@Qualifier("hsqldb") EntryDao passwordDao) {
         this.entryDao = passwordDao;
     }
 
@@ -28,15 +28,19 @@ public class EntryService {
         return entryDao.getAll();
     }
 
+    public List<Entry> getAllPaginated(Integer pageNo, Integer pageSize, String sortBy) {
+        return entryDao.getAllPaginated(pageNo, pageSize, sortBy);
+    }
+
     public Optional<Entry> getEntryById(UUID id) {
         return entryDao.getEntryById(id);
     }
 
-    public Integer deleteEntry(UUID id){
+    public Integer deleteEntry(UUID id) {
         return entryDao.deleteEntryById(id);
     }
 
-    public Integer updateEntry(UUID id, Entry entry){
+    public Integer updateEntry(UUID id, Entry entry) {
         return entryDao.updateEntryById(id, entry);
     }
 

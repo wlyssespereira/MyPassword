@@ -1,6 +1,5 @@
 package org.wlysses.mypassword.api;
 
-import com.sun.deploy.net.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;

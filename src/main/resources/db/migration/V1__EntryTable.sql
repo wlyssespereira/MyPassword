@@ -1,4 +1,4 @@
-CREATE TABLE Entry
+CREATE TABLE ENTRY
 (
     id     UUID         NOT NULL PRIMARY KEY,
     title  VARCHAR(100) NOT NULL,
