@@ -3,6 +3,10 @@ package org.wlysses.mypassword.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -10,15 +14,19 @@ import java.util.UUID;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(of = "id")
+@Entity
 public class Entry implements Serializable {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue
     private UUID id;
 
     private String title;
+    @Column(name="\"user\"")
     private String user;
     private String passwd;
 

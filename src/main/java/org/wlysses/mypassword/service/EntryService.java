@@ -16,7 +16,7 @@ public class EntryService {
     private final EntryDao entryDao;
 
     @Autowired
-    public EntryService(@Qualifier("hsqldb") EntryDao passwordDao) {
+    public EntryService(@Qualifier("hsqldb_jpa") EntryDao passwordDao) {
         this.entryDao = passwordDao;
     }
 

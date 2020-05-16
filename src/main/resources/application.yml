@@ -1,6 +1,10 @@
 app:
   datasource:
-    jdbc-url: jdbc:hsqldb:file:db/db
-    username: sa
+    jdbc-url: jdbc:hsqldb:file:db/dogs
     password: sa
-    pool-size: 30
+    username: sa
+    driver-class-name: "org.hsqldb.jdbc.JDBCDriver"
+  jpa:
+    database-platform: org.hibernate.dialect.HSQLDialect
+    hibernate:
+      ddl-auto: update
